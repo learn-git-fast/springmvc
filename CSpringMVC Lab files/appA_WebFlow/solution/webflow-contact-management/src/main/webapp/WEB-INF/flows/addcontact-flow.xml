@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	<var name="contact" class="com.intertech.domain.Contact" />
+	<var name="address" class="com.intertech.domain.Address" />
+	<view-state id="getcontact" view="editcontact.jsp" model="contact">
+		<transition on="contactSaved" to="getaddress" />
+	</view-state>
+	<view-state id="getaddress" view="editaddress.jsp" model="address">
+		<transition on="addressSaved" to="addContact" />
+	</view-state>
+	<action-state id="addContact">
+		<evaluate expression="contactService.addContact(contact, address)" />
+		<transition on="yes" to="added" />
+		<transition on="no" to="editcontact" />
+	</action-state>
+	<end-state id="added" view="successfuladd.jsp" />
+</flow>

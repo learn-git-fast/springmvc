@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+	<security:http pattern="/index.html" security="none" />
+	<security:http pattern="/login.jsp" security="none" />
+	<security:http pattern="/goodbye.jsp" security="none" />
+	<security:http pattern="/badlogin.jsp" security="none" />
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/rates.*"
+			access="ROLE_CUSTOMER" />
+		<security:intercept-url pattern="/**" access="ROLE_BANKER" />
+		<security:form-login login-page="/login.jsp"
+			authentication-failure-url="/badlogin.jsp" />
+		<security:logout logout-url="/goodbye"
+			logout-success-url="/goodbye.jsp" />
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="jim" password="secret"
+					authorities="ROLE_BANKER, ROLE_CUSTOMER" />
+				<security:user name="sally" password="password"
+					authorities="ROLE_CUSTOMER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

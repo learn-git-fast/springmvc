@@ -1,0 +1,1 @@
+java.exe -cp ..\lib\hsqldb.jar org.hsqldb.server.Server -database.0 contactdatabase -dbname.0 contactdb

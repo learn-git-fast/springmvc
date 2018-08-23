@@ -1,0 +1,1 @@
+java -cp ..\lib\hsqldb.jar org.hsqldb.util.DatabaseManagerSwing -driver org.hsqldb.jdbcDriver -url jdbc:hsqldb:hsql://localhost/contactdb -user sa -password ""
